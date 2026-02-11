@@ -1,6 +1,6 @@
 package transformers;
 
-public class OneLineBetweenParagraphs implements TextTransformer {
+public record OneLineBetweenParagraphs() implements TextTransformer {
 
     @Override
     public String getPrettyName() {

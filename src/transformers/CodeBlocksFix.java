@@ -1,10 +1,10 @@
 package transformers;
 
-public class FixCodeBlocks implements TextTransformer {
+public record CodeBlocksFix() implements TextTransformer {
 
     @Override
     public String getPrettyName() {
-        return "Fix code blocks";
+        return "Code Blocks Fix";
     }
 
     @Override

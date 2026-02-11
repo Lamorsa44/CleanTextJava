@@ -1,6 +1,6 @@
 package transformers;
 
-public class RemoveListingFromTitles implements TextTransformer {
+public record RemoveListingFromTitles() implements TextTransformer {
 
     @Override
     public String getPrettyName() {

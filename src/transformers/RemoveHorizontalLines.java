@@ -1,6 +1,6 @@
 package transformers;
 
-public class RemoveHorizontalLines implements TextTransformer {
+public record RemoveHorizontalLines() implements TextTransformer {
 
     @Override
     public String getPrettyName() {

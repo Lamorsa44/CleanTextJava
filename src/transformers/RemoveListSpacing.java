@@ -1,6 +1,6 @@
 package transformers;
 
-public class RemoveListSpacing implements TextTransformer {
+public record RemoveListSpacing() implements TextTransformer {
 
     @Override
     public String getPrettyName() {
