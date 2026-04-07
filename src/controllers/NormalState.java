@@ -22,8 +22,7 @@ public final class NormalState implements ControllerState {
             case "0" -> uiController.exit();
             case "1" -> uiController.getClipboard().printString();
             case String s when s.matches("^\\d+$") &&
-                    Integer.parseInt(s) - 2 < uiController.getTransformers().size() ->
-                transformAndCopy(s);
+                    intInRange(s, 2, uiController.getTransformers()) -> transformAndCopy(s);
             case "custom" -> uiController.setState(new CustomState(uiController));
             default -> uiController.getUi().printInfo(uiController);
         }

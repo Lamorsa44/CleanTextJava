@@ -21,10 +21,11 @@ public final class CustomState implements ControllerState {
         switch (input) {
             case "0" -> uiController.exit();
             case "1" -> uiController.getClipboard().printString();
-            case String s when s.matches("^\\d+$") && intInRange(s, 2, uiController.getTransformers()) ->
-                    transformAndCopy(s);
+            case String s when s.matches("^\\d+$") &&
+                    intInRange(s, 2, uiController.getTransformers()) -> transformAndCopy(s);
             case "create" -> uiController.setState(new CreateState(uiController));
             case "normal" -> uiController.setState(new NormalState(uiController));
+            case "delete" -> uiController.setState(new DeleteState(uiController));
             default -> uiController.getUi().printInfo(uiController);
         }
     }

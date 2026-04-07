@@ -1,19 +1,20 @@
 package ui;
 
-import controllers.CreateState;
-import controllers.CustomState;
-import controllers.NormalState;
-import controllers.UIController;
+import controllers.*;
 import services.FileLoaderService;
+import transformers.CustomTransformer;
 import transformers.TextTransformer;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 public class CommandLineUI implements CleanTextUI {
 
     private final Scanner scanner = new Scanner(System.in);
-    private final String normalInfo = buildInfoWTransformers(FileLoaderService.getTextTransformers())
+    private String normalInfo = buildInfoWTransformers(FileLoaderService.getTextTransformers())
             .append("custom. Custom Mode").toString();
 
     @Override
@@ -22,11 +23,20 @@ public class CommandLineUI implements CleanTextUI {
     }
 
     @Override
-    public void printCustomTransformers(UIController controller) {
+    public void printCustomStateInfo(UIController controller) {
         System.out.println(buildInfoWTransformers(controller.getCustomTransformers())
                 .append("create. Create custom transformer\n")
                 .append("normal. Normal Mode\n")
+                .append("delete. Delete Mode\n")
         );
+    }
+
+    @Override
+    public void printDeletionStateInfo(UIController controller) {
+        var i = new AtomicInteger();
+        controller.getCustomTransformers()
+                .forEach(transformer -> System.out.printf("%d. %s\n", i.getAndIncrement(), transformer.getPrettyName()));
+        System.out.println("back. Return to Custom Mode");
     }
 
     @Override
@@ -38,12 +48,18 @@ public class CommandLineUI implements CleanTextUI {
     public void printInfo(UIController controller) {
         switch (controller.getState()) {
             case NormalState _ -> printTransformers();
-            case CustomState _ -> printCustomTransformers(controller);
+            case CustomState _ -> printCustomStateInfo(controller);
             case CreateState createState -> {
                 printCustomTransformerCreation(createState.getUIController().getTransformers());
                 printSelectedTransformers(createState.getSelectedTransformers());
             }
+            case DeleteState _ -> printDeletionStateInfo(controller);
         }
+    }
+
+    @Override
+    public void printError(String s) {
+        System.out.println(s);
     }
 
     @Override

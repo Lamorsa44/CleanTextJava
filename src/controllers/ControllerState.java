@@ -7,7 +7,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.List;
 
-public sealed interface ControllerState permits CreateState, CustomState, NormalState {
+public sealed interface ControllerState permits CreateState, CustomState, DeleteState, NormalState {
 
     UIController getUIController();
 
@@ -26,6 +26,7 @@ public sealed interface ControllerState permits CreateState, CustomState, Normal
                     .get(Integer.parseInt(input) - 2)
                     .transform(clipboard.getString())).printString();
             case CreateState _ -> throw new UnsupportedOperationException("CreateState does not support transformation");
+            case DeleteState _ -> throw new UnsupportedOperationException("DeleteState does not support transformation");
         }
     }
 

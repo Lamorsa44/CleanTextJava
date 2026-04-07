@@ -68,4 +68,11 @@ public record FileLoaderService() {
             throw new RuntimeException(e);
         }
     }
+
+    public static void deleteTransformer(TextTransformer removed) throws IOException, IllegalArgumentException {
+        if (!(removed instanceof CustomTransformer))
+            throw new IllegalArgumentException("Only custom transformers can be deleted");
+        if (!Files.deleteIfExists(PATH_TO_TRANSFORMERS.resolve(removed.getPrettyName() + ".ser")))
+            throw new IOException("Could not delete file");
+    }
 }

@@ -1,6 +1,7 @@
 package ui;
 
 import controllers.UIController;
+import transformers.CustomTransformer;
 import transformers.TextTransformer;
 
 import java.util.List;
@@ -13,10 +14,12 @@ public interface CleanTextUI {
     String readInput();
     void printInfo(UIController controller);
     void printTransformers();
-    void printCustomTransformers(UIController controller);
+    void printCustomStateInfo(UIController controller);
+    void printDeletionStateInfo(UIController controller);
     String requestCustomTransformerName();
     void printCustomTransformerCreation(List<TextTransformer> transformers);
     void printSelectedTransformers(List<TextTransformer> selectedTransformers);
+    void printError(String s);
 
     default StringBuilder buildInfoWTransformers(List<? extends TextTransformer> transformers) {
         StringBuilder stringBuilder = new StringBuilder();
