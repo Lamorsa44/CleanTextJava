@@ -2,24 +2,21 @@ package ui;
 
 import controllers.*;
 import services.FileLoaderService;
-import transformers.CustomTransformer;
 import transformers.TextTransformer;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
 
 public class CommandLineUI implements CleanTextUI {
 
     private final Scanner scanner = new Scanner(System.in);
-    private String normalInfo = buildInfoWTransformers(FileLoaderService.getTextTransformers())
-            .append("custom. Custom Mode").toString();
+    private final String normalStateInfo = buildInfoWTransformers(FileLoaderService.getTextTransformers())
+                .append("custom. Custom Mode").toString();
 
     @Override
     public void printTransformers() {
-        System.out.println(normalInfo);
+        System.out.println(normalStateInfo);
     }
 
     @Override

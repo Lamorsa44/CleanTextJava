@@ -1,7 +1,6 @@
 package ui;
 
 import controllers.UIController;
-import transformers.CustomTransformer;
 import transformers.TextTransformer;
 
 import java.util.List;

@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-/* Responsable for loading and saving data
+/* Responsible for loading and saving data
 Loads transformers and chained transformers from package "transformers", from a file.
 * Also saves custom transformers to a file.*/
 public record FileLoaderService() {
@@ -70,9 +70,11 @@ public record FileLoaderService() {
     }
 
     public static void deleteTransformer(TextTransformer removed) throws IOException, IllegalArgumentException {
-        if (!(removed instanceof CustomTransformer))
+        if (!(removed instanceof CustomTransformer)) {
             throw new IllegalArgumentException("Only custom transformers can be deleted");
-        if (!Files.deleteIfExists(PATH_TO_TRANSFORMERS.resolve(removed.getPrettyName() + ".ser")))
+        }
+        if (!Files.deleteIfExists(PATH_TO_TRANSFORMERS.resolve(removed.getPrettyName() + ".ser"))) {
             throw new IOException("Could not delete file");
+        }
     }
 }

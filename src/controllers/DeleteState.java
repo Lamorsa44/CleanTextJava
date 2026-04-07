@@ -1,7 +1,6 @@
 package controllers;
 
 import services.FileLoaderService;
-import transformers.TextTransformer;
 
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
@@ -27,7 +26,7 @@ public record DeleteState(UIController uiController) implements ControllerState 
         try {
             var removed = uiController.getCustomTransformers().get(Integer.parseInt(s));
             FileLoaderService.deleteTransformer(removed);
-
+            uiController.getCustomTransformers().remove(removed);
             uiController.getUi().printInfo(uiController);
         } catch (IOException e) {
             uiController.getUi().printError("Could not delete transformer: " + e.getMessage());
