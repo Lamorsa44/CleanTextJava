@@ -21,7 +21,7 @@ public class CommandLineUI implements CleanTextUI {
 
     @Override
     public void printCustomStateInfo(UIController controller) {
-        System.out.println(buildInfoWTransformers(controller.getCustomTransformers())
+        System.out.print(buildInfoWTransformers(controller.getCustomTransformers())
                 .append("create. Create custom transformer\n")
                 .append("normal. Normal Mode\n")
                 .append("delete. Delete Mode\n")
