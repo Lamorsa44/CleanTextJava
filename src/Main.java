@@ -2,10 +2,10 @@ import controllers.UIController;
 import ui.CommandLineUI;
 
 void main() {
-    CommandLineUI ui = new CommandLineUI();
-    UIController controller = new UIController(ui);
+    UIController controller = new UIController(new CommandLineUI());
     printCharset();
     controller.run();
+    Runtime.getRuntime().addShutdownHook(new Thread(controller::exit));
 }
 
 private static void printCharset() {

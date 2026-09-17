@@ -10,6 +10,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class UIController {
 
@@ -38,6 +39,13 @@ public class UIController {
         while (running) {
             try {
                 state.handleInput(ui.readInput());
+            } catch (NoSuchElementException e) {
+                if (!running || !ui.hasInput()) {
+                    System.out.println("Scan closed");
+                    exit();
+                    break;
+                }
+                System.out.println("No input");
             } catch (UnsupportedFlavorException e) {
                 System.out.println("Unsupported clipboard data flavor");
             } catch (IOException e) {

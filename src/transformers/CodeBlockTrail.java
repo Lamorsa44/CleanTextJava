@@ -1,5 +1,6 @@
 package transformers;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public record CodeBlockTrail() implements TextTransformer {
@@ -11,7 +12,8 @@ public record CodeBlockTrail() implements TextTransformer {
 
     @Override
     public String transform(String text) {
-        return Pattern.compile("(?s)(?m)^```(.*?)```").matcher(text)
-                .replaceAll(matchResult -> "```%s\n```".formatted(matchResult.group(1).stripTrailing()));
+        String s = Pattern.compile("(?s)(?m)^```(.*?)```").matcher(text)
+                .replaceAll(matchResult -> Matcher.quoteReplacement("```%s\n```".formatted(matchResult.group(1).stripTrailing())));
+        return s.replaceAll("(?m)^", "> ");
     }
 }

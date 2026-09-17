@@ -33,4 +33,6 @@ public interface CleanTextUI {
         transformers.forEach(transformer -> stringBuilder
                 .append("%d. %s\n".formatted(counter.getAndIncrement(), transformer.getPrettyName())));
     }
+
+    boolean hasInput();
 }

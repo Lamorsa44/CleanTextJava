@@ -12,7 +12,7 @@ public class CommandLineUI implements CleanTextUI {
 
     private final Scanner scanner = new Scanner(System.in);
     private final String normalStateInfo = buildInfoWTransformers(FileLoaderService.getTextTransformers())
-                .append("custom. Custom Mode").toString();
+            .append("custom. Custom Mode").toString();
 
     @Override
     public void printTransformers() {
@@ -79,5 +79,10 @@ public class CommandLineUI implements CleanTextUI {
         System.out.println(selectedTransformers.stream()
                 .map(TextTransformer::getPrettyName)
                 .reduce((text1, text2) -> text1 + " -> " + text2).orElse(""));
+    }
+
+    @Override
+    public boolean hasInput() {
+        return scanner.hasNext();
     }
 }

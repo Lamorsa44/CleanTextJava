@@ -1,6 +1,7 @@
 package transformers;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public record WrapCodeBlockInCallout() implements TextTransformer {
@@ -10,15 +11,15 @@ public record WrapCodeBlockInCallout() implements TextTransformer {
         return "Wrap code block in code callout";
     }
 
-public String transform(String text) {
-    Flag flag = new Flag();
-    var pattern = Pattern.compile("(?s)(?m)(?<!\\[!code-?].*%n)^```(.*?)```");
-    return pattern.matcher(text).replaceAll(matchResult -> {
-        String header = "[!code%s]\n".formatted(flag.toggle() ? "-" : "");
-        String combined = header + matchResult.group();
-        return combined.replaceAll("(?m)^", "> ");
-    });
-}
+    public String transform(String text) {
+        Flag flag = new Flag();
+        var pattern = Pattern.compile("(?s)(?m)(?<!\\[!code-?].*%n)^```(.*?)```");
+        return pattern.matcher(text).replaceAll(matchResult -> {
+            String header = "[!code%s]\n".formatted(flag.toggle() ? "-" : "");
+            String combined = header + matchResult.group();
+            return Matcher.quoteReplacement(combined.replaceAll("(?m)^", "> "));
+        });
+    }
 
     record Flag(AtomicBoolean bool) {
         public Flag() {
